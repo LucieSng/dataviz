@@ -1,35 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// On importe le hook qui va récupérer les données de l'API
+import useParisApi from "./assets/components/hooks/useParisApi";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  //le hook "useParisApi" retourne un objet contenant la donnée récupérée avec l'appel d'api et la propriété {apidata} permet d'extraire celle ci de cet objet.
+  const { apiData } = useParisApi();
 
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {/* on affiche les données du json sous forme de string
+        A retirer plus tard:test de fonctionnement de l'appel d'api */}
+        <div>{JSON.stringify(apiData)}</div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
