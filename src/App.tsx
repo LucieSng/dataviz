@@ -4,6 +4,7 @@ import LineChartYear from "./assets/components/LineChartYear";
 
 import useParisApi from "./assets/components/hooks/useParisApi";
 import HeaderComponent from "./assets/components/header";
+import FooterComponent from "./assets/components/footer";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <>
       <LineChartYear></LineChartYear>
       <HeaderComponent></HeaderComponent>
+      <FooterComponent></FooterComponent>
       {/* <div>
         {/* on affiche les données du json sous forme de string
         A retirer plus tard:test de fonctionnement de l'appel d'api */}
