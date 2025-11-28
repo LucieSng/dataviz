@@ -1,83 +1,86 @@
-// Tournages par année tous types confondus.
-
-// Import du graph depuis recharts.
+import { useEffect, useState } from "react";
 import {
-  LineChart,
-  XAxis,
-  YAxis,
   CartesianGrid,
-  Tooltip,
   Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 
-import { useEffect, useState } from "react";
+interface YearlyAggregatedData {
+  annee_tournage: string;
+  "count(*)": number;
+}
 
-// Récupérer la data de l'api
+interface TransformedData {
+  year: string;
+  count: number;
+}
+
 export default function LineChartYear({ isAnimationActive = false }) {
-  const [apiData, setApiData] = useState();
-  // apiData contient les données envoyées par setApiData qui lui-même récupère les données stockées dans useState
+  const [apiData, setApiData] = useState<YearlyAggregatedData[] | undefined>(
+    undefined
+  );
+  const [chartData, setChartData] = useState<TransformedData[] | undefined>(
+    undefined
+  );
+
   useEffect(() => {
     fetchDataLineChartYear();
   }, []);
-  // useEffect permet de lancer du code automatiquement, dans ce cas il lance automatiquement fetchDataLineChartYear
-  // Le tableau [] indique que l’effet doit être exécuté : une seule fois, au chargement et jamais plus ensuite.
-  // si pas de [], useEffect se relance à chaque changement de state et comme "fetchDataLineChartYear" change "apiData" via "setApiData"(qui utilise un state), ça lance une boucle infinie.
 
   async function fetchDataLineChartYear() {
     const url =
       "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=annee_tournage,count(*)&group_by=annee_tournage&limit=100";
+
     try {
       const response = await fetch(url);
+      console.log("response log", response);
 
       const data = await response.json();
+      console.log("data log", data);
 
-      setApiData(data);
+      // Extract the results array from the API response
+      const results = data.results;
+      setApiData(results);
+      console.log("apiData log", results);
+
+      // Transform data to extract year and rename count field
+      const transformed = results.map((item: YearlyAggregatedData) => ({
+        year: new Date(item.annee_tournage).getFullYear().toString(),
+        count: item["count(*)"],
+      }));
+      setChartData(transformed);
+      console.log("chartData log", transformed);
+
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   }
 
-  // Message pour le chargement des données
-  if (!apiData) {
-    return <div>Chargement des données...</div>;
-  }
-
-  // Afficher le graph
   return (
-    <LineChart
-      style={{
-        width: "100%",
-        maxWidth: "700px",
-        maxHeight: "70vh",
-        aspectRatio: 1.618,
-      }}
-      responsive
-      data={apiData}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis width="auto" />
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="pv"
-        stroke="#8884d8"
-        isAnimationActive={isAnimationActive}
-      />
-      <Line
-        type="monotone"
-        dataKey="uv"
-        stroke="#82ca9d"
-        isAnimationActive={isAnimationActive}
-      />
-    </LineChart>
+    <div>
+      {chartData && chartData.length > 0 && (
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="count"
+              stroke="#8884d8"
+              name="Nombre de tournages"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      )}
+    </div>
   );
 }
