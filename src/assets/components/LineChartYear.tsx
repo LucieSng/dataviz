@@ -11,29 +11,37 @@ import {
   Line,
 } from "recharts";
 
-import useParisApi from "./hooks/useParisApi";
+import { useEffect, useState } from "react";
 
-// Récupérer la data de l'api et l'afficher sur App.tsx
-// Grouper par année, récupérer que les années
-// Compter le nombre de tournages par année avec "count"
-// Trier par année croissante avec "sort"
+// Récupérer la data de l'api
+export default function LineChartYear({ isAnimationActive = false }) {
+  const [apiData, setApiData] = useState();
+  // apiData contient les données envoyées par setApiData qui lui-même récupère les données stockées dans useState
+  useEffect(() => {
+    fetchDataLineChartYear();
+  }, []);
+  // useEffect permet de lancer du code automatiquement, dans ce cas il lance automatiquement fetchDataLineChartYear
+  // Le tableau [] indique que l’effet doit être exécuté : une seule fois, au chargement et jamais plus ensuite.
+  // si pas de [], useEffect se relance à chaque changement de state et comme "fetchDataLineChartYear" change "apiData" via "setApiData"(qui utilise un state), ça lance une boucle infinie.
 
-const LineChartYear = ({ isAnimationActive = false }) => {
-  // On définit une URL spécifique pour ce graphique qui récupère les tournages groupés par année
-  const apiUrl =
-    "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=annee_tournage,count(*)&group_by=annee_tournage&limit=100";
-  const { apiData } = useParisApi(apiUrl);
+  async function fetchDataLineChartYear() {
+    const url =
+      "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=annee_tournage,count(*)&group_by=annee_tournage&limit=100";
+    try {
+      const response = await fetch(url);
 
-  // Message pour le chargement des données
-  if (!apiData?.results) {
-    return <div>Chargement des données...</div>;
+      const data = await response.json();
+
+      setApiData(data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  // Transformation des données
-  const chartData = apiData.results.map((item: any) => ({
-    name: item.annee_tournage,
-    tournages: item.count,
-  }));
+  // Message pour le chargement des données
+  if (!apiData) {
+    return <div>Chargement des données...</div>;
+  }
 
   // Afficher le graph
   return (
@@ -72,6 +80,4 @@ const LineChartYear = ({ isAnimationActive = false }) => {
       />
     </LineChart>
   );
-};
-
-export default LineChartYear;
+}
