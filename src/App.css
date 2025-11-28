@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Tailwind v4 comprend @plugin, mais VS Code pas encore, fausse erreur, daisyui fonctionne quand même*/
+@plugin "daisyui";
 
 /* #root {
   max-width: 1280px;
