@@ -1,37 +1,109 @@
-// code pris ctrl C/V sur le site de recharts
+// Top des types (type_tournage) : long métrage, série, téléfilm…
 
-import { BarChart, Bar } from "recharts";
-import { useParisApi } from "../components/hooks/useParisApi";
+// Afficher le pourcentage ou le volume total.
 
-const BarChartType = ({ isAnimationActive = false }) => {
-  // On définit une URL spécifique pour ce graphique qui récupère les tournages groupés par année
-  const apiUrl =
-    "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=annee_tournage,count(*)&group_by=annee_tournage&limit=100";
-  const { apiData } = useParisApi(apiUrl);
+import { useEffect, useState } from "react";
+import {
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Rectangle,
+} from "recharts";
+//import de typage pour la legende personalisée du graph
+import type { TooltipContentProps } from "recharts";
 
-  // Message pour le chargement des données
-  if (!apiData?.results) {
-    return <div>Chargement des données...</div>;
+interface typeDataTypes {
+  type_tournage: "string";
+  "count(*)": number;
+}
+
+interface TransformedData {
+  year: string;
+  count: number;
+}
+
+export default function BarChartType({ isAnimationActive = false }) {
+  const [apiData, setApiData] = useState<typeDataTypes[] | undefined>(
+    undefined
+  );
+  const [chartData, setChartData] = useState<TransformedData[] | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    fetchDataBarChartTypes();
+  }, []);
+
+  async function fetchDataBarChartTypes() {
+    const url =
+      "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=type_tournage,count(*)&group_by=type_tournage&limit=100";
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const results = data.results;
+      setApiData(results);
+
+      const transformed = results.map((item: typeDataTypes) => ({
+        types: item.type_tournage,
+        count: item["count(*)"],
+      }));
+      setChartData(transformed);
+      console.log("chartData type log", transformed);
+
+      console.log(data);
+    } catch (error) {
+      console.error("error");
+    }
   }
-
-  // #endregion
-  const BarChart = () => {
+  //création de la legende personalisée au survol des barres du graph
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: TooltipContentProps<string | number, string>) => {
+    const isVisible = active && payload && payload.length;
     return (
-      <BarChart
-        style={{
-          width: "100%",
-          maxWidth: "300px",
-          maxHeight: "100px",
-          aspectRatio: 1.618,
-          isAnimationActive: { isAnimationActive },
-        }}
-        responsive
-        data={apiData}
+      <div
+        className="custom-tooltip"
+        style={{ visibility: isVisible ? "visible" : "hidden" }}
       >
-        <Bar dataKey="uv" fill="#8884d8" />
-      </BarChart>
+        {isVisible && (
+          <>
+            <p className="label text-black bg-white p-1 rounded-xl">
+              {`Nombre de tournages : ${payload[0].value}`}{" "}
+            </p>
+          </>
+        )}
+      </div>
     );
   };
-};
 
-export default BarChartType;
+  return (
+    <div>
+      {chartData && chartData.length > 0 && (
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="types" />
+            <YAxis width="auto" />
+            <Tooltip content={CustomTooltip} />
+            <Legend />
+            <Bar
+              dataKey="count"
+              fill="#8884d8"
+              name="Nombre de tournages par types"
+              isAnimationActive={isAnimationActive}
+              activeBar={<Rectangle fill="gold" stroke="purple" />}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
+    </div>
+  );
+}
