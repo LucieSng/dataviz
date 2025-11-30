@@ -84,6 +84,7 @@ export default function HorizontalBarArrond({ isAnimationActive = false }) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="count" type="number" />
             <YAxis
+              hide
               dataKey="district"
               type="category"
               scale="band"
