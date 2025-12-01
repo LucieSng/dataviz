@@ -25,7 +25,7 @@ interface TransformedData {
   count: number;
 }
 
-export default function LineChartYear() {
+export default function LineChartYear({ isAnimationActive = false }) {
   // apiData stocke les données brutes de l'API, setApiData est la fonction pour remplir ces boîtes
   const [apiData, setApiData] = useState<YearlyAggregatedData[] | undefined>(
     undefined
@@ -87,6 +87,7 @@ export default function LineChartYear() {
                 dataKey="count"
                 stroke="#8884d8"
                 name="Nombre de tournages"
+                isAnimationActive={isAnimationActive}
               />
             </LineChart>
           </ResponsiveContainer>
