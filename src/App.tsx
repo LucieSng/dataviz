@@ -1,5 +1,5 @@
 // On importe le hook qui va récupérer les données de l'API
-
+import BarChartType from "./assets/components/BarChartType";
 import LineChartYear from "./assets/components/LineChartYear";
 // import HeaderComponent from "./assets/components/header";
 import "./App.css";
@@ -9,6 +9,7 @@ function App() {
     <>
       {/* <HeaderComponent></HeaderComponent> */}
       <LineChartYear />
+      <BarChartType />
     </>
   );
 }
