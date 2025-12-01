@@ -5,7 +5,6 @@ import LineChartYear from "./assets/components/LineChartYear";
 import HeaderComponent from "./assets/components/header";
 import FooterComponent from "./assets/components/footer";
 import StackedAreaTypes from "./assets/components/StackedAreaTypes";
-import HeaderComponent from "./assets/components/header";
 import "./App.css";
 
 function App() {
