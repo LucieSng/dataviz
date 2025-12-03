@@ -43,39 +43,49 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
 
       const data = await response.json();
 
-      // Extract the results array from the API response
+      // Extraire les données de l'API
       const results = data.results;
       setApiData(results);
 
-      // Transform data to extract year and rename count field
+      // Chaque élément de results est transformé avec des propriétés renommées et nettoyées
       const transformed = results.map((item: AggregatedData) => ({
-        year: new Date(item.annee_tournage).getFullYear().toString(),
-        type: item.type_tournage.trim().toLowerCase(),
-        // trim permet de supprimer les espaces en début et fin de chaîne, toLowerCase permet de mettre en
-        count: item["count(*)"],
-        // Regroupement de ces données transformées
+        // map crée un nouveau tableau et transforme chaque élément selon les instructions suivantes
+        year: new Date(item.annee_tournage).getFullYear().toString(), // ne garder que l'année
+        type: item.type_tournage.trim().toLowerCase(), // supprimer les espaces en début et fin de chaîne, et mettre en minuscule
+        count: item["count(*)"], // renommer count, on met des crochets car le nom contient des caractères spéciaux
       }));
 
       // Créer un objet vide pour stocker les données regroupées par année
       const dataParAnnee: { [key: string]: any } = {};
-      // Parcourir chaque ligne de données transformées
       transformed.forEach((item) => {
-        // Extraire les valeurs
+        // Parcourir chaque élément un par un
         const annee = item.year;
         const typeTournage = item.type;
         const nombreTournages = item.count;
-        // Vérifier si cette année existe déjà dans l'objet
-        const anneeExiste = dataParAnnee[annee];
+        const anneeExiste = dataParAnnee[annee]; // Vérifier si cette année existe déjà
 
         if (!anneeExiste) {
-          // Si l'année n'existe pas, on la crée avec la propriété year
-          dataParAnnee[annee] = { year: annee };
-        } // Ajouter le nombre de tournages pour chaque type
-        dataParAnnee[annee][typeTournage] = nombreTournages;
+          dataParAnnee[annee] = { year: annee }; // Créer la date non existante
+        }
+        dataParAnnee[annee][typeTournage] = nombreTournages; // Ajouter le nombre de tournages pour chaque type
       });
 
-      // Convertir l'objet en tableau
-      const tableauFinal = Object.values(dataParAnnee);
+      // Convertir l'objet en tableau d'années et le transformer en tableau
+      const tableauFinal = Object.values(dataParAnnee); //
+      const typesUniques = new Set(); // Permet de garder que des valeurs uniques
+      tableauFinal.forEach((item) => {
+        const etiquettes = Object.keys(item); // Créer un tableau qui recupère toutes les clés
+        let totalTournages = 0; // Accumuler tous les tournages
+        etiquettes.forEach((uneEtiquette) => {
+          // Pour chaque clé, vérifier si c'est un type de tournage
+          if (uneEtiquette !== "year") {
+            typesUniques.add(uneEtiquette); // Ajouter chaque type de tournage dans le Set et collecter les types uniques
+            totalTournages = totalTournages + item[uneEtiquette]; // J'ajoute le nombre de tournages pour chaque type
+          }
+        });
+
+        item.total = totalTournages;
+      });
 
       // Envoyer le tableau au state
       setChartData(tableauFinal);
@@ -92,8 +102,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
         <AreaChart
           style={{
             width: "100%",
-            maxWidth: "700px",
-            maxHeight: "70vh",
+            maxHeight: "40vh",
             aspectRatio: 1.618,
           }}
           responsive
@@ -120,35 +129,39 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
-          <YAxis dataKey="count" />
+          <YAxis dataKey="total" />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="type_tournage"
+            dataKey="long métrage"
             stroke="#8884d8"
+            name="Long métrage"
             fillOpacity={1}
             fill="url(#colorLongMetrage)"
             isAnimationActive={isAnimationActive}
           />
           <Area
             type="monotone"
-            dataKey="telefilm"
+            dataKey="téléfilm"
             stroke="#82ca9d"
+            name="Téléfilm"
             fillOpacity={1}
             fill="url(#colorTelefilm)"
             isAnimationActive={isAnimationActive}
           />
           <Area
             type="monotone"
-            dataKey="serietv"
+            dataKey="série tv"
             stroke="#8884d8"
+            name="Série tv"
             fillOpacity={1}
             fill="url(#colorSerieTV)"
             isAnimationActive={isAnimationActive}
           />
           <Area
             type="monotone"
-            dataKey="serieweb"
+            dataKey="série web"
+            name="Série web"
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorSerieWeb)"
