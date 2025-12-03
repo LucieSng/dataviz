@@ -8,6 +8,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  Legend,
 } from "recharts";
 
 interface AggregatedData {
@@ -131,6 +132,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           <XAxis dataKey="year" />
           <YAxis dataKey="total" />
           <Tooltip />
+          <Legend />
           <Area
             type="monotone"
             dataKey="long métrage"
