@@ -5,12 +5,14 @@ import AnalysesPage from "./pages/AnalysesPage";
 
 function App() {
   return (
-    <HashRouter>
+    <Router>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/homepage" element={<Homepage />} />
         <Route path="/AnalysesPage" element={<AnalysesPage />} />
+        />
       </Routes>
-    </HashRouter>
+    </Router>
+   
   );
 }
 
