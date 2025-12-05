@@ -31,7 +31,7 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
   // Les états permettent de stocker des données qui peuvent changer dans le temps
 
   // Stocke les données brutes reçues de l'API
-  const [apiData, setApiData] = useState<topDirectorDataTypes[] | undefined>(
+  const [_apiData, setApiData] = useState<topDirectorDataTypes[] | undefined>(
     undefined
   );
 

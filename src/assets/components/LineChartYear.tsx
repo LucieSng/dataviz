@@ -27,7 +27,7 @@ interface TransformedData {
 
 export default function LineChartYear({ isAnimationActive = false }) {
   // apiData stocke les données brutes de l'API, setApiData est la fonction pour remplir ces boîtes
-  const [apiData, setApiData] = useState<YearlyAggregatedData[] | undefined>(
+  const [_apiData, setApiData] = useState<YearlyAggregatedData[] | undefined>(
     undefined
   );
   // chartData stocke les données transformées, setChartData est la fonction pour remplir ces boîtes

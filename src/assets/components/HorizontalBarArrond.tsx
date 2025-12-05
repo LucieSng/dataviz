@@ -24,7 +24,7 @@ interface transformedDistrictDataTypes {
 }
 
 export default function HorizontalBarArrond({ isAnimationActive = false }) {
-  const [apiData, setApiData] = useState<districtDataTypes[] | undefined>(
+  const [_apiData, setApiData] = useState<districtDataTypes[] | undefined>(
     undefined
   );
   const [chartData, setChartData] = useState<

@@ -28,7 +28,7 @@ interface TransformedData {
 }
 
 export default function BarChartType({ isAnimationActive = false }) {
-  const [apiData, setApiData] = useState<typeDataTypes[] | undefined>(
+  const [_apiData, setApiData] = useState<typeDataTypes[] | undefined>(
     undefined
   );
   const [chartData, setChartData] = useState<TransformedData[] | undefined>(
