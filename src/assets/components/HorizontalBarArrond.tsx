@@ -31,6 +31,8 @@ export default function HorizontalBarArrond({ isAnimationActive = false }) {
     transformedDistrictDataTypes[] | undefined
   >(undefined);
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     fetchDataBarChartArrond();
   }, []);
@@ -52,6 +54,7 @@ export default function HorizontalBarArrond({ isAnimationActive = false }) {
       setChartData(transformed);
     } catch (error) {
       console.error("error");
+      setError("Erreur du chargement des données");
     }
   }
   //création de la legende personalisée au survol des barres du graph
@@ -78,6 +81,7 @@ export default function HorizontalBarArrond({ isAnimationActive = false }) {
   };
   return (
     <div>
+      {error && <div>{error}</div>}
       {chartData && chartData.length > 0 && (
         <ResponsiveContainer width="100%" height={400}>
           <ComposedChart layout="vertical" data={chartData}>
