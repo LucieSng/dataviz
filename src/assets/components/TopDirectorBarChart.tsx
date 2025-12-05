@@ -164,7 +164,7 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
           <>
             {/* Afficher le nom du réalisateur */}
             <p className="label text-black bg-white p-1 rounded-xl">
-              {` Realisateur : ${payload[0].value}`}
+              {` Nombre de tournages : ${payload[0].value}`}
             </p>
           </>
         )}
