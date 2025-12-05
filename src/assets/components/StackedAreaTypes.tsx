@@ -31,6 +31,8 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
     undefined
   );
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     fetchDataStackedAreaTypes();
   }, []);
@@ -58,7 +60,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
 
       // Créer un objet vide pour stocker les données regroupées par année
       const dataParAnnee: { [key: string]: any } = {};
-      transformed.forEach((item) => {
+      transformed.forEach((item: TransformedData) => {
         // Parcourir chaque élément un par un
         const annee = item.year;
         const typeTournage = item.type;
@@ -94,11 +96,13 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
       console.log(data);
     } catch (error) {
       console.error(error);
+      setError("Erreur de chargement des données");
     }
   }
 
   return (
     <div>
+      {error && <div>{error}</div>}
       {chartData && chartData.length > 0 && (
         <AreaChart
           style={{
@@ -136,7 +140,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           <Area
             type="monotone"
             dataKey="long métrage"
-            stroke="#8884d8"
+            stroke="#413ea0"
             name="Long métrage"
             fillOpacity={1}
             fill="url(#colorLongMetrage)"
@@ -154,7 +158,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           <Area
             type="monotone"
             dataKey="série tv"
-            stroke="#8884d8"
+            stroke="#413ea0"
             name="Série tv"
             fillOpacity={1}
             fill="url(#colorSerieTV)"
