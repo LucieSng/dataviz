@@ -1,3 +1,4 @@
+// On importe le hook qui va récupérer les données de l'API
 import "./App.css";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";

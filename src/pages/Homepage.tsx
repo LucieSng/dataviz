@@ -1,8 +1,13 @@
 import FooterComponent from "../assets/components/footer";
 import "../App.css";
 import backgroundImage from "../assets/components/images/background.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Homepage() {
+  const nav = useNavigate();
+  const navigate = () => {
+    nav("/AnalysesPage");
+  };
   return (
     <div
       className="relative min-h-screen flex flex-col"
@@ -24,7 +29,10 @@ export default function Homepage() {
           <h2 className="text-white text-4xl md:text-4xl font-bold mb-8">
             Vos données ciné à Paris
           </h2>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          <button
+            onClick={navigate}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          >
             Découvrir
           </button>
         </div>
