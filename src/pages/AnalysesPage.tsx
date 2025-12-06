@@ -11,19 +11,19 @@ export default function AnalysesPage() {
     <>
       <HeaderComponent></HeaderComponent>
       <div className="grid-cols-2 gap-10 p-10 md:grid bg-[#ebfdfe]">
-        <div className="rounded-box border  p-4 shadow-md bg-white">
+        <div className="rounded-box border-2  p-4 shadow-md bg-white">
           <LineChartYear />
         </div>
-        <div className="rounded-box border  p-4 shadow-md bg-white">
+        <div className="rounded-box border-2  p-4 shadow-md bg-white">
           <BarChartType />
         </div>
-        <div className="rounded-box border  p-4 shadow-md bg-white">
+        <div className="rounded-box border-2  p-4 shadow-md bg-white">
           <HorizontalBarArrond />
         </div>
-        <div className="rounded-box border  p-4 shadow-md bg-white">
+        <div className="rounded-box border-2  p-4 shadow-md bg-white">
           <StackedAreaTypes />
         </div>
-        <div className="rounded-box border  p-4 shadow-md bg-white">
+        <div className="rounded-box border-2  p-4 shadow-md bg-white">
           <TopDirectorBarChart />
         </div>
       </div>
