@@ -206,7 +206,7 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
             </select>
 
             {/* Afficher le nombre de réalisateurs */}
-            <span className="text-gray-400 text-sm">
+            <span className="text-black text-sm">
               ({filteredChartData.length} réalisateur
               {filteredChartData.length > 1 ? "s" : ""})
             </span>
