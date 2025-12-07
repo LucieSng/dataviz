@@ -184,7 +184,7 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
           <div className="mb-6 flex justify-center items-center gap-4">
             {/* Menu select */}
             <select
-              id="year-select"
+              aria-label=" Encart déroulant de sélection d'année"
               value={selectedYear}
               // Quand l'utilisateur change l'année, mettre à jour l'état
               onChange={(e) => setSelectedYear(e.target.value)}
