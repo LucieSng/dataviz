@@ -24,7 +24,7 @@ interface TransformedData {
 }
 
 export default function StackedAreaTypes({ isAnimationActive = false }) {
-  const [apiData, setApiData] = useState<AggregatedData[] | undefined>(
+  const [_apiData, setApiData] = useState<AggregatedData[] | undefined>(
     undefined
   );
   const [chartData, setChartData] = useState<TransformedData[] | undefined>(
