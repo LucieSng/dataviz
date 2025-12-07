@@ -116,20 +116,20 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
         >
           <defs>
             <linearGradient id="colorLongMetrage" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              <stop offset="5%" stopColor="#0072B2" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#0072B2" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorTelefilm" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+              <stop offset="5%" stopColor="#009E73" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#009E73" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorSerieTV" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#413ea0" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              <stop offset="5%" stopColor="#F0E442" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#F0E442" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorSerieWeb" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#f5f5f5" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+              <stop offset="5%" stopColor="#D55E00" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#D55E00" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
@@ -140,7 +140,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           <Area
             type="monotone"
             dataKey="long métrage"
-            stroke="#413ea0"
+            stroke="#0072B2"
             name="Long métrage"
             fillOpacity={1}
             fill="url(#colorLongMetrage)"
@@ -149,7 +149,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           <Area
             type="monotone"
             dataKey="téléfilm"
-            stroke="#82ca9d"
+            stroke="#009E73"
             name="Téléfilm"
             fillOpacity={1}
             fill="url(#colorTelefilm)"
@@ -158,7 +158,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
           <Area
             type="monotone"
             dataKey="série tv"
-            stroke="#413ea0"
+            stroke="#F0E442"
             name="Série tv"
             fillOpacity={1}
             fill="url(#colorSerieTV)"
@@ -168,7 +168,7 @@ export default function StackedAreaTypes({ isAnimationActive = false }) {
             type="monotone"
             dataKey="série web"
             name="Série web"
-            stroke="#82ca9d"
+            stroke="#D55E00"
             fillOpacity={1}
             fill="url(#colorSerieWeb)"
             isAnimationActive={isAnimationActive}
