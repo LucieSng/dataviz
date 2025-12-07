@@ -19,6 +19,7 @@ import type { TooltipContentProps } from "recharts";
 
 interface typeDataTypes {
   type_tournage: "string";
+  annee_tournage: "number";
   "count(*)": number;
 }
 
@@ -26,6 +27,18 @@ interface TransformedData {
   year: string;
   count: number;
 }
+
+const years = [
+  "2024",
+  "2023",
+  "2022",
+  "2021",
+  "2020",
+  "2019",
+  "2018",
+  "2017",
+  "2016",
+];
 
 export default function BarChartType({ isAnimationActive = false }) {
   const [_apiData, setApiData] = useState<typeDataTypes[] | undefined>(
@@ -37,13 +50,24 @@ export default function BarChartType({ isAnimationActive = false }) {
 
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchDataBarChartTypes();
-  }, []);
+  const [selectedYear, setSelectedYear] = useState<string | null>(null);
 
-  async function fetchDataBarChartTypes() {
-    const url =
+  useEffect(() => {
+    fetchDataBarChartTypes(selectedYear);
+  }, [selectedYear]);
+
+  async function fetchDataBarChartTypes(year: string | null = null) {
+    const baseUrl =
       "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=type_tournage,count(*)&group_by=type_tournage&limit=100";
+    let url = baseUrl;
+    // Appel URL dynamique pour gérer le filtre sélectionné par l'user
+    if (year !== null) {
+      url = `${baseUrl}&where=date_debut>="${year}-01-01" AND date_debut<="${year}-12-31"`;
+    } else {
+      url = baseUrl;
+    }
+
+    console.log("URL appelée :", url);
 
     try {
       const response = await fetch(url);
@@ -90,6 +114,29 @@ export default function BarChartType({ isAnimationActive = false }) {
   return (
     <div>
       {error && <div>{error}</div>}
+      <select
+        value={selectedYear || ""}
+        onChange={(e) => {
+          setSelectedYear(e.target.value || null);
+        }}
+        style={{
+          border: "solid grey 1px",
+          borderRadius: "8px",
+          padding: "10px",
+          margin: "12px",
+        }}
+      >
+        <option value="">Toutes les années</option>
+        {years.map(
+          (
+            year // Boucler sur le tableau de dates
+          ) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          )
+        )}
+      </select>
       {chartData && chartData.length > 0 && (
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={chartData}>
