@@ -182,10 +182,6 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
         {/* MENU DÉROULANT DE SÉLECTION D'ANNÉE */}
         {availableYears.length > 0 && (
           <div className="mb-6 flex justify-center items-center gap-4">
-            <label htmlFor="year-select" className="text-lg font-semibold">
-              Sélectionner une année :
-            </label>
-
             {/* Menu select */}
             <select
               id="year-select"
@@ -204,12 +200,6 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
                 </option>
               ))}
             </select>
-
-            {/* Afficher le nombre de réalisateurs */}
-            <span className="text-black text-sm">
-              ({filteredChartData.length} réalisateur
-              {filteredChartData.length > 1 ? "s" : ""})
-            </span>
           </div>
         )}
 
