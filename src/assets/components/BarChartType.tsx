@@ -119,6 +119,12 @@ export default function BarChartType({ isAnimationActive = false }) {
         onChange={(e) => {
           setSelectedYear(e.target.value || null);
         }}
+        style={{
+          border: "solid grey 1px",
+          borderRadius: "8px",
+          padding: "10px",
+          margin: "12px",
+        }}
       >
         <option value="">Toutes les années</option>
         {years.map(
