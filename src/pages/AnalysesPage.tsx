@@ -8,7 +8,7 @@ import StackedAreaTypes from "../assets/components/StackedAreaTypes";
 
 export default function AnalysesPage() {
   return (
-    <>
+    <main>
       <HeaderComponent></HeaderComponent>
       <div className="grid-cols-2 gap-10 p-10 md:grid bg-[#ebfdfe]">
         <div className="rounded-box border-2  p-4 shadow-md bg-white">
@@ -28,6 +28,6 @@ export default function AnalysesPage() {
         </div>
       </div>
       <FooterComponent></FooterComponent>
-    </>
+    </main>
   );
 }
