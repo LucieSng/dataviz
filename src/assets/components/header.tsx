@@ -4,7 +4,7 @@ const HeaderComponent = () => (
   <nav className="sticky top-0 z-50 bg-blue-700 h-16 flex items-center px-4">
     <Link
       to="/"
-      arial-label="Retourner à l'accueil"
+      aria-label="Retourner à l'accueil"
       className="cursor-pointer hover:text-blue-600 transition-colors"
     >
       <svg
