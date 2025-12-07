@@ -18,7 +18,7 @@ export default function Homepage() {
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 left-0 right-0 h-[90%] bg-gradient-to-b from-transparent via-black/80 to-black"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-[90%] bg-linear-to-b from-transparent via-black/80 to-black"></div>
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col justify-center items-end px-4 m-32">
