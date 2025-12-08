@@ -22,12 +22,12 @@ export default function Homepage() {
           <div className="absolute bottom-0 left-0 right-0 h-[90%] bg-linear-to-b from-transparent via-black/80 to-black"></div>
         </div>
 
-        <div className="relative z-10 flex-1 flex flex-col justify-center items-end px-4 m-32">
-          <div className="text-left">
-            <h1 className="text-white text-9xl md:text-10xl font-extrabold mb-8">
+        <div className="relative z-10 flex-1 flex flex-col justify-center items-end px-4 m-32 ">
+          <div className="text-left ">
+            <h1 className="text-white text-5xl sm:text-9xl md:text-9xl  font-extrabold mb-8">
               Dataviz
             </h1>
-            <h2 className="text-white text-4xl md:text-4xl font-bold mb-8">
+            <h2 className="text-white text-xl sm:text-4xl md:text-4xl font-bold mb-8">
               Vos données ciné à Paris
             </h2>
             <button
