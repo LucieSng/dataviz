@@ -1,9 +1,9 @@
 const FooterComponent = () => (
-  <footer className="bg-blue-700 text-white py-12">
+  <footer className="bg-blue-700 text-white py-5">
     <div className="container mx-auto">
       <div className="grid grid-cols-1 grid-cols-2 gap-32">
-        <div>
-          <h1 className="font-regular text-xl mb-4">
+        <div className="textarea-sm px-3 sm:textarea-md">
+          <h1 className="font-regular mb-4">
             Ce projet a pour objectif de rendre visible l’activité
             cinématographique française à partir des données ouvertes de la
             Ville de Paris.
@@ -15,7 +15,7 @@ const FooterComponent = () => (
             Découvrir le repository
           </a>
         </div>
-        <div>
+        <div className="textarea-sm sm:textarea-md">
           <h1 className="font-medium mb-3">
             Mélissa Largilliere •
             <a
