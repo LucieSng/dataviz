@@ -115,10 +115,12 @@ export default function BarChartType({ isAnimationActive = false }) {
     <div>
       {error && <div>{error}</div>}
       <select
+        aria-label="Encart déroulant de sélection d'année"
         value={selectedYear || ""}
         onChange={(e) => {
           setSelectedYear(e.target.value || null);
         }}
+        className="cursor-pointer"
         style={{
           border: "solid grey 1px",
           borderRadius: "8px",
