@@ -181,14 +181,20 @@ export default function TopDirectorBarChart({ isAnimationActive = false }) {
       <div className=" text-white">
         {/* MENU DÉROULANT DE SÉLECTION D'ANNÉE */}
         {availableYears.length > 0 && (
-          <div className="mb-6 flex justify-center items-center gap-4">
+          <div className="mb-6  gap-4">
             {/* Menu select */}
             <select
               aria-label=" Encart déroulant de sélection d'année"
               value={selectedYear}
               // Quand l'utilisateur change l'année, mettre à jour l'état
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="bg-white text-black px-4 py-2 rounded-lg border-2 border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+              className=" text-black cursor-pointer"
+              style={{
+                border: "solid grey 1px",
+                borderRadius: "8px",
+                padding: "10px",
+                margin: "12px",
+              }}
             >
               {/* Option pour toutes les années */}
               <option value="all">Toutes les années</option>
