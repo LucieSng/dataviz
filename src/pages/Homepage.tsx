@@ -24,7 +24,7 @@ export default function Homepage() {
 
         <div className="relative z-10 flex-1 flex flex-col justify-center items-end px-4 m-32">
           <div className="text-left">
-            <h1 className="text-white text-9xl md:text-10xl font-extrabold mb-8">
+            <h1 className="text-white text-6xl md:text-9xl font-extrabold mb-8">
               Dataviz
             </h1>
             <h2 className="text-white text-4xl md:text-4xl font-bold mb-8">
